@@ -1,0 +1,204 @@
+#:kivy 2.1.0
+MameWidget:
+<MameWidget>:
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.size
+        GridLayout:
+            cols:1
+            rows:7
+            #-----------------------------------------------------------------------
+            # タイトルエリア
+            GridLayout:
+                cols:2
+                rows:1
+                size_hint_y:0.1
+                # タイトル
+                RGBLabel:
+                    size_hint_x:0.75
+                    text: "カラー選択アプリ"
+                    background_color: .3, .5, .3, 1
+                # 閉じるボタン
+                Button:
+                    size_hint_x:0.25
+                    font_size:14
+                    background_color: .3, .5, .3, 1
+                    text: "閉じる"
+                    on_press: root.exit_dialog()
+            #-----------------------------------------------------------------------
+            # 文字と背景表示エリア
+            GridLayout:
+                cols:1
+                rows:2
+                size_hint_y:0.3
+                # カラー
+                RGBLabel:
+                    id: rgb_label
+                    color:0,0,0,1
+                    background_color:0.5,0.5,0.5,1
+                    text:"カラースケール：文字色と背景色の組み合わせチェック"
+                # グレー
+                RGBLabel:
+                    id: gray_label
+                    color:0,0,0,1
+                    background_color:0.5,0.5,0.5,1
+                    text:"グレースケール：コントラストのチェック"
+            GridLayout:
+                cols:2
+                rows:1
+                size_hint_y:0.6
+                GridLayout:
+                    cols:1
+                    rows:5
+                    RGBLabel:
+                        background_color:.5,.5,.5,.5
+                        text:"文字色"
+                    #-----------------------------------------------------------------------
+                    # R スライダー
+                    GridLayout:
+                        cols:2
+                        rows:1
+                        RGBSlider:
+                            id: r_slider
+                            background_color:1,0,0,0.5  # 背景色 赤
+                            value:0
+                        RGBLabel:
+                            id: r_label
+                            background_color:1,0,0,0.5  # 背景色 赤
+                            text:"0.0"                  # 色の数値 0-1
+                    #-----------------------------------------------------------------------
+                    # G スライダー
+                    GridLayout:
+                        cols:2
+                        rows:1
+                        RGBSlider:
+                            id: g_slider
+                            background_color:0,1,0,0.5  # 背景色 緑
+                            value:0.0
+                        RGBLabel:
+                            id: g_label
+                            background_color:0,1,0,0.5  # 背景色 緑
+                            text:"0.0"                  # 色の数値 0-1
+                    #-----------------------------------------------------------------------
+                    # B スライダー
+                    GridLayout:
+                        cols:2
+                        rows:1                    
+                        RGBSlider:
+                            id: b_slider
+                            background_color:0,0,1,0.5  # 背景色 青
+                            value:0.0
+                        RGBLabel:
+                            id: b_label
+                            background_color:0,0,1,0.5  # 背景色 青
+                            text:"0.0"                  # 色の数値 0-1
+                    #-----------------------------------------------------------------------
+                    # Alpha スライダー
+                    GridLayout:
+                        cols:2
+                        rows:1                    
+                        RGBSlider:
+                            id: a_slider
+                            background_color:1,1,1,0.5  # 背景色 白
+                            value:1.0
+                        RGBLabel:
+                            id: a_label
+                            background_color:1,1,1,0.5  # 背景色 白
+                            text:"1.0"                  # 色の数値 0-1
+                GridLayout:
+                    cols:1
+                    rows:5
+                    RGBLabel:
+                        background_color:.5,.5,.5,.5  # 背景色 赤
+                        text:"背景色"
+                    #-----------------------------------------------------------------------
+                    # R スライダー
+                    GridLayout:
+                        cols:2
+                        rows:1
+                        RGBSlider:
+                            id: r_bg_slider
+                            background_color:1,0,0,0.5  # 背景色 赤
+                        RGBLabel:
+                            id: r_bg_label
+                            background_color:1,0,0,0.5  # 背景色 赤
+                            text:"0.5"                  # 色の数値 0-1
+                    #-----------------------------------------------------------------------
+                    # G スライダー
+                    GridLayout:
+                        cols:2
+                        rows:1
+                        RGBSlider:
+                            id: g_bg_slider
+                            background_color:0,1,0,0.5  # 背景色 緑
+                        RGBLabel:
+                            id: g_bg_label
+                            background_color:0,1,0,0.5  # 背景色 緑
+                            text:"0.5"                  # 色の数値 0-1
+                    #-----------------------------------------------------------------------
+                    # B スライダー
+                    GridLayout:
+                        cols:2
+                        rows:1                    
+                        RGBSlider:
+                            id: b_bg_slider
+                            background_color:0,0,1,0.5  # 背景色 青
+                        RGBLabel:
+                            id: b_bg_label
+                            background_color:0,0,1,0.5  # 背景色 青
+                            text:"0.5"                  # 色の数値 0-1
+                    #-----------------------------------------------------------------------
+                    # Alpha スライダー
+                    GridLayout:
+                        cols:2
+                        rows:1                    
+                        RGBSlider:
+                            id: a_bg_slider
+                            background_color:1,1,1,0.5  # 背景色 白
+                            value:1
+                        RGBLabel:
+                            id: a_bg_label
+                            background_color:1,1,1,0.5  # 背景色 白
+                            text:"1.0"                  # 色の数値 0-1
+#-----------------------------------------------------------------------
+# Label、Slider用バックグラウンドカラー定義
+<BackgroundColor@Widget>
+    background_color: 1, 1, 1, 1
+    canvas.before:
+        Color:
+            rgba: root.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+# 　色の指定は 最小値0 最大値1 0.1 ステップで設定可能
+<RGBSlider@Slider+BackgroundColor>: # 背景色の指定ができるスライダー
+    min:0
+    max:1
+    step:0.1
+    value:0.5
+    size_hint_x:0.9
+<RGBLabel@Label+BackgroundColor>:   # 背景色の指定ができるラベル
+    size_hint_x:0.1
+    font_size:self.height/4
+
+#-----------------------------------------------------------------------
+# 終了確認ダイアログ
+<PopupExitDialog>:
+    title: '確認'
+    size_hint: 0.6, 0.8 
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            size_hint_y: 0.2
+            font_size:14
+            text: '選択してください'
+        Button:
+            size_hint_y: 0.2
+            font_size:14
+            text: 'プログラム終了'
+            on_release: root.exec_exit()
+        Button:
+            size_hint_y: 0.2
+            font_size:14
+            text: 'キャンセル'
+            on_press: root.dismiss()
